@@ -82,7 +82,7 @@ int main(void)
 	struct libwebsocket_context *context;
 	struct lws_context_creation_info info;
 	memset(&info, 0, sizeof info);
-	info.port = 9000;
+	info.port = 8000;
 	info.gid = -1;
 	info.uid = -1;
 	info.protocols = protocols;

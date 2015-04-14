@@ -59,11 +59,13 @@ int main()
 	struct lws_context_creation_info info;
 	memset(&info, 0, sizeof info);
 	info.port = CONTEXT_PORT_NO_LISTEN;
-	info.iface = "eth0";
+	info.iface = NULL;
 	info.gid = -1;
 	info.uid = -1;
 	info.options = 0;
 	info.extensions = libwebsocket_get_internal_extensions();
+	int debug_level = 7;
+	lws_set_log_level(debug_level, lwsl_emit_syslog);
 	info.protocols = protocols;
 	struct libwebsocket_context *context;
 	context = libwebsocket_create_context(&info);
