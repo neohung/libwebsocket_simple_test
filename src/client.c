@@ -42,7 +42,7 @@ static int callback_client_neo(struct libwebsocket_context * that,
 
 static struct libwebsocket_protocols protocols[] = {
 	{
-                "neo-protocol", // protocol name - very important!
+                NULL, // protocol name - very important!
                 callback_client_neo,   // callback
                 0                          // we don't use any per session data
         },
@@ -69,15 +69,14 @@ int main()
 	context = libwebsocket_create_context(&info);
 	struct libwebsocket *wsi;
 	wsi = libwebsocket_client_connect(context, 
-									  "localhost", 
-									  9000, 
+									  "your-openshift-domain", 
+									  8000, 
 									  0,          //"ws:" (no ssl) 
 									  "/", 		  //path
-									  "localhost", //host name
-									  "localhost", //soket origin name
-									  "neo-protocol", -1);
+									  "your-openshift-domain", //host name
+									  "your-openshift-domain", //soket origin name
+									  NULL, -1);
 
-	libwebsocket_callback_on_writable_all_protocol(&protocols[0]);
 
 	while (rc >= 0 && is_looping) {
 		//printf("ser\n");

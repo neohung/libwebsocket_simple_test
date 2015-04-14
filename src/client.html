@@ -4,18 +4,26 @@
         <meta charset="utf-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript">
+		function printTime() {
+    			var d = new Date();
+			$('div').append($('<p>', { text: d.toLocaleTimeString() }));
+		}
             $(function() {
                 window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-                var websocket = new WebSocket('ws://192.168.85.128:9000',
-                                              'neo-protocol');
-
+                var websocket = new WebSocket('ws://your-openshift-domain:8000', null);
+		var mytimer = setInterval(function () {printTime()}, 1000);
+                $('div').append($('<p>', { text: "connecting" }));
                 websocket.onopen = function () {
+		    clearInterval(mytimer);
                     $('h1').css('color', 'green');
+                    $('div').append($('<p>', { text: "connect success." }));
                 };
 
                 websocket.onerror = function () {
+		    clearInterval(mytimer);
                     $('h1').css('color', 'red');
+                    $('div').append($('<p>', { text: "connect fail!!!" }));
                 };
 
                 websocket.onmessage = function (message) {

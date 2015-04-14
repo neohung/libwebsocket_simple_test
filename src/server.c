@@ -68,7 +68,7 @@ static struct libwebsocket_protocols protocols[] = {
 		0              // per_session_data_size
 	},
 	{
-                "neo-protocol", // protocol name - very important!
+                NULL, // protocol name - very important!
                 callback_neo,   // callback
                 0                          // we don't use any per session data
         },
