@@ -41,3 +41,24 @@ Check log by:
 ```
 $ rhc tail -a your-app-name
 ```
+
+Client
+---------
+### Modify src/client.html
+change "your-openshift-domain" to your openshift domain
+```
+var websocket = new WebSocket('ws://your-openshift-domain:8000', null);
+```
+
+### Modify src/client.c
+change "your-openshift-domain" to your openshift domain
+```
+wsi = libwebsocket_client_connect(context,
+                                  "your-openshift-domain",
+                                  8000,
+                                  0,         
+                                  "/",         
+                                  "your-openshift-domain", 
+                                  "your-openshift-domain", 
+                                  NULL, -1);
+```
