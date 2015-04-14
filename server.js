@@ -15,8 +15,35 @@
   WebSocketServer = WebSocket.Server;
 
   parseArgs = require("minimist");
-
   Encryptor = require("./encrypt").Encryptor;
+  options = {
+    alias: {
+      'b': 'local_address',
+      'r': 'remote_port',
+      'k': 'password',
+      'c': 'config_file',
+      'm': 'method'
+    },
+    string: ['local_address', 'password', 'method', 'config_file'],
+    "default": {
+      'config_file': path.resolve(__dirname, "config.json")
+    }
+  };
+  configFromArgs = parseArgs(process.argv.slice(2), options);
+  configFile = configFromArgs.config_file;
+  configContent = fs.readFileSync(configFile);
+  config = JSON.parse(configContent);
+
+  console.log("config[local_address]: "+config['local_address']);
+  console.log("config[remote_port]: "+config['remote_port']);
+
+  if (process.env.OPENSHIFT_NODEJS_IP) {
+    config['local_address'] = process.env.OPENSHIFT_NODEJS_IP;
+  }
+
+  if (process.env.OPENSHIFT_NODEJS_PORT) {
+    config['remote_port'] = process.env.OPENSHIFT_NODEJS_PORT;
+  }
 
   setInterval(function() {
     if (global.gc) {
@@ -28,7 +55,7 @@
     res.writeHead(200, {
       'Content-Type': 'text/plain'
     });
-    return res.end("asdf.");
+    return res.end("neo websocket test.");
   });
 
   wss = new WebSocketServer({
@@ -52,7 +79,7 @@
     });
  });
 
-  server.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP, function() {
+  server.listen(config['remote_port'], config['local_address'], function() {
     var address;
     address = server.address();
     return console.log("server listening at", address);

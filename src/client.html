@@ -11,7 +11,7 @@
             $(function() {
                 window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-                var websocket = new WebSocket('ws://your-openshift-domain:8000', null);
+                var websocket = new WebSocket('ws://127.0.0.1:8000', null);
 		var mytimer = setInterval(function () {printTime()}, 1000);
                 $('div').append($('<p>', { text: "connecting" }));
                 websocket.onopen = function () {

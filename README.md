@@ -45,13 +45,13 @@ $ rhc tail -a your-app-name
 Client
 ---------
 ### Modify src/client.html
-change "your-openshift-domain" to your openshift domain
+change "127.0.0.1" to your openshift domain
 ```
 var websocket = new WebSocket('ws://your-openshift-domain:8000', null);
 ```
 
 ### Modify src/client.c
-change "your-openshift-domain" to your openshift domain
+change "127.0.0.1" to your openshift domain
 ```
 wsi = libwebsocket_client_connect(context,
                                   "your-openshift-domain",

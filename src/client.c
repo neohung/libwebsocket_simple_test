@@ -69,12 +69,12 @@ int main()
 	context = libwebsocket_create_context(&info);
 	struct libwebsocket *wsi;
 	wsi = libwebsocket_client_connect(context, 
-									  "your-openshift-domain", 
+									  "127.0.0.1", 
 									  8000, 
 									  0,          //"ws:" (no ssl) 
 									  "/", 		  //path
-									  "your-openshift-domain", //host name
-									  "your-openshift-domain", //soket origin name
+									  "127.0.0.1", //host name
+									  "", //soket origin name
 									  NULL, -1);
 
 
